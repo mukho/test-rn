@@ -1,21 +1,19 @@
 // @flow
-import { createSwitchNavigator, createStackNavigator } from 'react-navigation';
+import { createSwitchNavigator } from 'react-navigation';
 
 import {
-  LogInRoute,
-  SignUpRoute,
-  SomeDataRoute,
-  WelcomeScreenRoute,
+  AuthStackName,
+  AppStackName,
 } from '../ducks/constants';
 import AuthScreens from './AuthScreens';
 import AppScreens from './AppScreens';
-import AuthLoadingScreen from '../AppScreens';
+import PreloadScreen from '../screens/PreloadScreen';
 
 export default createSwitchNavigator(
   {
-    AuthLoading: AuthLoadingScreen,
-    [SomeDataRoute]: AppScreens,
-    [WelcomeScreenRoute]: AuthScreens,
+    AuthLoading: PreloadScreen,
+    [AppStackName]: AppScreens,
+    [AuthStackName]: AuthScreens,
   },
   {
     initialRouteName: 'AuthLoading',

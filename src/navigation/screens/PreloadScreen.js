@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import { SomethingDataScreen, LogInScreen } from '../../../navigation/ducks/constants';
+import { AuthStackName, AppStackName } from '../ducks/constants';
 
 class AuthLoadingScreen extends React.Component {
   constructor(props) {
@@ -21,7 +21,7 @@ class AuthLoadingScreen extends React.Component {
 
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? SomethingDataScreen : LogInScreen);
+    this.props.navigation.navigate(userToken ? AppStackName : AuthStackName);
   };
 
   // Render any loading content that you like here

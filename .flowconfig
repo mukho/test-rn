@@ -1,10 +1,6 @@
-[include]
-.*/src/.*
 [ignore]
-.*/node_modules/rxjs/observable/dom/.*
 ; We fork some components by platform
 .*/*[.]android.js
-.*/node_modules/**
 
 ; Ignore "BUCK" generated dirs
 <PROJECT_ROOT>/\.buckd/
@@ -23,20 +19,30 @@
 ; Ignore metro
 .*/node_modules/metro/.*
 
+[include]
+
 [libs]
 node_modules/react-native/Libraries/react-native/react-native-interface.js
 node_modules/react-native/flow/
 node_modules/react-native/flow-github/
-flow-typed
-
-[lints]
-all=warn
 
 [options]
 emoji=true
 
-include_warnings=true
 module.system=haste
+module.system.haste.use_name_reducers=true
+# get basename
+module.system.haste.name_reducers='^.*/\([a-zA-Z0-9$_.-]+\.js\(\.flow\)?\)$' -> '\1'
+# strip .js or .js.flow suffix
+module.system.haste.name_reducers='^\(.*\)\.js\(\.flow\)?$' -> '\1'
+# strip .ios suffix
+module.system.haste.name_reducers='^\(.*\)\.ios$' -> '\1'
+module.system.haste.name_reducers='^\(.*\)\.android$' -> '\1'
+module.system.haste.name_reducers='^\(.*\)\.native$' -> '\1'
+module.system.haste.paths.blacklist=.*/__tests__/.*
+module.system.haste.paths.blacklist=.*/__mocks__/.*
+module.system.haste.paths.blacklist=<PROJECT_ROOT>/node_modules/react-native/Libraries/Animated/src/polyfills/.*
+module.system.haste.paths.whitelist=<PROJECT_ROOT>/node_modules/react-native/Libraries/.*
 
 munge_underscores=true
 
@@ -58,4 +64,4 @@ suppress_comment=\\(.\\|\n\\)*\\$FlowFixedInNextDeploy
 suppress_comment=\\(.\\|\n\\)*\\$FlowExpectedError
 
 [version]
-^0.78.0
+^0.75.0
