@@ -1,35 +1,39 @@
 // @flow
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { withNavigation } from 'react-navigation';
+
+import { InfoComponent } from '../components/InfoComponent';
 
 type PropsType = {
   navigation: {
-    setParams: ({ numberNotViewedJobs: number }) => void,
     state: {
-      params: {
-        numberNotViewedJobs: number
-      }
-    }
-  },
-  numberNotViewedJobs: number
+      routeName: string
+    },
+    navigate: (args: { routeName: string, params?: {} }) => void
+  }
 };
 
 class WelcomeScreen extends Component<PropsType> {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'Welcome',
-    };
+  static navigationOptions = {
+    header: null,
   };
 
+  navTo = ({ routeName, params }) => {
+    this.props.navigation.navigate({ // eslint-disable-line react/destructuring-assignment
+      routeName,
+      params,
+    });
+  }
+
   render() {
+    const { navigation } = this.props;
     return (
-      <View>
-        <Text>
-          Welcome
-        </Text>
-      </View>
+      <InfoComponent
+        routeName={navigation.state.routeName}
+        navTo={this.navTo}
+      />
     );
   }
 }
 
-export default WelcomeScreen;
+export default withNavigation(WelcomeScreen);

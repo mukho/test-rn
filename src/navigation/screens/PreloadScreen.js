@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import React, { Component } from 'react';
 import {
   ActivityIndicator,
   AsyncStorage,
@@ -7,9 +7,9 @@ import {
   View,
 } from 'react-native';
 
-import { AuthStackName, AppStackName } from '../ducks/constants';
+import { AuthStackName } from '../ducks/constants';
 
-class AuthLoadingScreen extends React.Component {
+class AuthLoadingScreen extends Component {
   constructor(props) {
     super(props);
     this._bootstrapAsync();
@@ -17,11 +17,11 @@ class AuthLoadingScreen extends React.Component {
 
   // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userToken');
-
+    const userToken = await AsyncStorage.getItem('token');
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    this.props.navigation.navigate(userToken ? AppStackName : AuthStackName);
+    // this.props.navigation.navigate(userToken ? AppStackName : AuthStackName);
+    this.props.navigation.navigate(AuthStackName);
   };
 
   // Render any loading content that you like here

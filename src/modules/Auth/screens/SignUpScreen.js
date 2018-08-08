@@ -1,35 +1,39 @@
 // @flow
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { withNavigation } from 'react-navigation';
+
+import AuthContainer from '../containers/AuthContainer';
 
 type PropsType = {
   navigation: {
-    setParams: ({ numberNotViewedJobs: number }) => void,
     state: {
-      params: {
-        numberNotViewedJobs: number
-      }
-    }
-  },
-  numberNotViewedJobs: number
+      routeName: string
+    },
+    navigate: (args: { routeName: string, params: {} }) => void
+  }
 };
 
 class SignUpScreen extends Component<PropsType> {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'Login',
-    };
+  static navigationOptions = {
+    title: 'Sign Up',
   };
 
+  navTo = ({ routeName, params }) => {
+    this.props.navigation.navigate({ // eslint-disable-line react/destructuring-assignment
+      routeName,
+      params,
+    });
+  }
+
   render() {
+    const { navigation } = this.props;
     return (
-      <View>
-        <Text>
-          SignUp
-        </Text>
-      </View>
+      <AuthContainer
+        routeName={navigation.state.routeName}
+        navTo={this.navTo}
+      />
     );
   }
 }
 
-export default SignUpScreen;
+export default withNavigation(SignUpScreen);

@@ -1,33 +1,27 @@
 // @flow
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+
+import AuthContainer from '../containers/AuthContainer';
 
 type PropsType = {
   navigation: {
-    setParams: ({ numberNotViewedJobs: number }) => void,
     state: {
-      params: {
-        numberNotViewedJobs: number
-      }
+      routeName: string
     }
-  },
-  numberNotViewedJobs: number
+  }
 };
-
 class LoginScreen extends Component<PropsType> {
-  static navigationOptions = ({ navigation }) => {
-    return {
-      tabBarLabel: 'Login',
-    };
+  static navigationOptions = {
+    title: 'Log In',
   };
 
   render() {
+    const { navigation } = this.props;
+
     return (
-      <View>
-        <Text>
-          Login
-        </Text>
-      </View>
+      <AuthContainer
+        routeName={navigation.state.routeName}
+      />
     );
   }
 }
