@@ -9,3 +9,7 @@ export const getItemStorage$: (i: string) => Observable<string> = item => (
 export const setItemStorage$: (key: string, value: string) => Observable<string> = (key, value) => (
   from(AsyncStorage.setItem(key, value))
 );
+
+export const removeItemFromStorage$: (key: string) => Observable<string> = key => (
+  from(AsyncStorage.removeItem(key))
+);

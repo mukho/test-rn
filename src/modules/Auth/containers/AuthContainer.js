@@ -20,6 +20,7 @@ type PropsType = {
   routeNavTo: string,
   routeName: string,
   navTo: (args: { routeName: string, params?: {} }) => void,
+  clearNavTo: () => void,
   navigation: {
     navigate: (args: { routeName: string }) => void
   }
@@ -38,6 +39,10 @@ class AuthContainer extends Component<PropsType, StateType> {
         routeName: routeNavTo,
       });
     }
+  }
+
+  componentWillUnmount() {
+    this.props.clearNavTo(); // eslint-disable-line react/destructuring-assignment
   }
 
   onChangeText = ({ stateType, value }) => {
@@ -88,6 +93,7 @@ const mapDispatchToProps = (dispatch: (action: {}) => {}) => ({
       email, password,
     }))
   ),
+  clearNavTo: () => dispatch(authActions.clearNavTo()),
 });
 
 const mapStateToProps = ({ auth }) => ({

@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 
-import { AuthStackName } from '../ducks/constants';
+import { WelcomeScreenRoute, SomeDataRoute } from '../ducks/constants';
 
 class AuthLoadingScreen extends Component {
   constructor(props) {
@@ -20,8 +20,8 @@ class AuthLoadingScreen extends Component {
     const userToken = await AsyncStorage.getItem('token');
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
-    // this.props.navigation.navigate(userToken ? AppStackName : AuthStackName);
-    this.props.navigation.navigate(AuthStackName);
+    this.props.navigation.navigate(userToken ? SomeDataRoute : WelcomeScreenRoute);
+    // this.props.navigation.navigate(AuthStackName);
   };
 
   // Render any loading content that you like here

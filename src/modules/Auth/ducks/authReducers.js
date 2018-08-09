@@ -23,6 +23,11 @@ const reducer = (state: {} = {}, action: {
         routeNavTo: action.screenName,
       };
     }
+    case authActions.CLEAR_NAV_TO:
+      return {
+        ...state,
+        routeNavTo: undefined,
+      };
     default:
       return state;
   }

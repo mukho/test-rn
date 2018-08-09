@@ -1,4 +1,5 @@
 import React from 'react';
+import { View } from 'react-native';
 import { createStackNavigator } from 'react-navigation';
 
 import {
@@ -25,6 +26,7 @@ export const AuthStack = createStackNavigator({
     headerTitleStyle: styles.headerTitleStyle,
     headerStyle: [styles.headerStyle, styles.headerStyleNoBorder],
     headerLeft: <HeaderBackIcon clickAction={() => navigation.goBack()} />,
+    headerRight: <View />,
   }),
 });
 

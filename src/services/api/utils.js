@@ -1,22 +1,15 @@
 // @flow
-import { Observable, of } from 'rxjs';
-import { mergeMap, catchError, tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { mergeMap, tap } from 'rxjs/operators';
 import R from 'ramda';
 
-import {
-  getItemStorage$,
-  setItemStorage$,
-} from '../utils/storage';
-// let token;
+import { getItemStorage$ } from '../utils/storage';
+
 let tempStorage = {};
 
 const ACCESS_TOKEN_ASYNC_STORAGE = 'token';
 
-const writeToTempStorage = ({
-  token, // eslint-disable-line camelcase
-}: {
-  token: string
-}) => {
+const writeToTempStorage = (token: string) => {
   tempStorage = {
     accessToken: token,
   };
@@ -121,7 +114,7 @@ export const ajax = (
     const requestWithToken = () => (
       getItemStorage$(ACCESS_TOKEN_ASYNC_STORAGE)
         .pipe(
-          tap(console.log),
+          tap(writeToTempStorage),
           mergeMap(token => (
             request(config, body, token)
           )),

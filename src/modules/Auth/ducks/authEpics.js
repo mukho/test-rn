@@ -1,12 +1,13 @@
 // @flow
 import { combineEpics, ofType } from 'redux-observable';
-import { switchMap, catchError, tap, mapTo } from 'rxjs/operators';
+import {
+  switchMap, catchError, tap, mapTo,
+} from 'rxjs/operators';
 import { of } from 'rxjs';
 
 import { WelcomeScreenRoute, SomeDataRoute, SignUpSuccessRoute } from '../../../navigation/ducks/constants';
 import * as authActions from './authActions';
 import {
-  getItemStorage$,
   setItemStorage$,
 } from '../../../services/utils/storage';
 
