@@ -1,5 +1,5 @@
 // @flow
-import React from 'react';
+import * as React from 'react';
 import {
   View, Text, TextInput, Image, TouchableOpacity,
 } from 'react-native';
@@ -27,6 +27,38 @@ const RenderSignUpScreenFooter = ({ navTo }: {
   </View>
 );
 
+const RenderSignInMethodAuth = ({ changeMethodLogIn }) => (
+  <View style={styles.inRow}>
+    <TouchableOpacity
+      key={1}
+      onPress={() => changeMethodLogIn('Twitter')}
+    >
+      <Image
+        source={require('./assets/linkedinLogo.png')}
+        style={styles.linkedinLogo}
+      />
+    </TouchableOpacity>
+    <TouchableOpacity
+      key={2}
+      onPress={() => changeMethodLogIn('Facebook')}
+    >
+      <Image
+        source={require('./assets/linkedinLogo.png')}
+        style={styles.linkedinLogo}
+      />
+    </TouchableOpacity>
+    <TouchableOpacity
+      key={3}
+      onPress={() => changeMethodLogIn('Linkedin')}
+    >
+      <Image
+        source={require('./assets/linkedinLogo.png')}
+        style={styles.linkedinLogo}
+      />
+    </TouchableOpacity>
+  </View>
+);
+
 const RenderSignInScreenSubTitle = () => ([
   <Image
     source={require('./assets/loginLogo.png')}
@@ -47,15 +79,40 @@ type PropsType = {
   onChangeText: (args: { stateType: string, value: string }) => void
 };
 
-class SignUp extends React.PureComponent<PropsType> {
+type StateType = {
+  methodForLogin: string
+};
+
+class SignUp extends React.PureComponent<PropsType, StateType> {
+  textInput = React.ElementRef
+
+  state = {
+    methodForLogin: 'Linkedin',
+  }
+
+
+  setTextInputRef = (elem: ?React.ElementRef<typeof TextInput>) => {
+    this.textInput = elem;
+  }
+
   isSignUpScreen = (routeName: string) => (
     routeName === SignUpRoute
   )
+
+  changeMethodLogIn = (methodForLogin: string) => {
+    this.setState({
+      methodForLogin,
+    });
+    // $FlowFixMe
+    this.textInput.focus();
+  }
 
   render() {
     const {
       routeName, navTo, sendAuthData, email, password, onChangeText,
     } = this.props;
+    const { methodForLogin } = this.state;
+
     return (
       <View style={styles.wrapper}>
         <View style={styles.content}>
@@ -63,10 +120,19 @@ class SignUp extends React.PureComponent<PropsType> {
             { this.isSignUpScreen(routeName) ? null
               : <RenderSignInScreenSubTitle navTo={navTo} />
             }
-            <Image
-              source={require('./assets/linkedinLogo.png')}
-              style={styles.linkedinLogo}
-            />
+            { this.isSignUpScreen(routeName) ? (
+              <Image
+                source={require('./assets/linkedinLogo.png')}
+                style={styles.linkedinLogo}
+              />
+            )
+              : (
+                <RenderSignInMethodAuth
+                  changeMethodLogIn={this.changeMethodLogIn}
+                />
+              )
+            }
+
             { this.isSignUpScreen(routeName) ? (
               <Text style={styles.contentTitle}>
                 Sign Up With Linkedin
@@ -75,10 +141,11 @@ class SignUp extends React.PureComponent<PropsType> {
               : null
             }
             <TextInput
-              placeholder="Email Address"
+              placeholder={`${methodForLogin} Email Address`}
               style={styles.input}
               onChangeText={value => onChangeText({ stateType: 'email', value })}
               value={email}
+              ref={this.setTextInputRef}
             />
             <TextInput
               placeholder="Password"

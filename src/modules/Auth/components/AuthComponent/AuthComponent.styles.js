@@ -29,7 +29,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   linkedinLogo: {
-    marginVertical: 10,
+    marginTop: 10,
+    marginBottom: 20,
+    marginHorizontal: 5,
   },
   contentTitle: {
     color: '#7a939c',
@@ -73,6 +75,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+  },
+  inRow: {
+    flexDirection: 'row',
   },
 });
 

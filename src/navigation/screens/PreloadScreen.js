@@ -9,19 +9,22 @@ import {
 
 import { WelcomeScreenRoute, SomeDataRoute } from '../ducks/constants';
 
-class AuthLoadingScreen extends Component {
-  constructor(props) {
+type PropsType = {
+  navigation: {
+    navigate: (routeName: string) => void
+  }
+};
+
+class AuthLoadingScreen extends Component<PropsType> {
+  constructor(props: PropsType) {
     super(props);
     this._bootstrapAsync();
   }
 
-  // Fetch the token from storage then navigate to our appropriate place
   _bootstrapAsync = async () => {
     const userToken = await AsyncStorage.getItem('token');
-    // This will switch to the App screen or Auth screen and this loading
-    // screen will be unmounted and thrown away.
+    // eslint-disable-next-line react/destructuring-assignment
     this.props.navigation.navigate(userToken ? SomeDataRoute : WelcomeScreenRoute);
-    // this.props.navigation.navigate(AuthStackName);
   };
 
   // Render any loading content that you like here
