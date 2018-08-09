@@ -9,13 +9,9 @@ type PropsType = {
   data: Array<{
     id: string,
     title: string,
-    images: {
-      fixed_height: {
-        width: string,
-        url: string,
-        height: string
-      }
-    }
+    width: string,
+    url: string,
+    height: string
   }>,
   clearData: () => void,
   getSomeData: (args: {

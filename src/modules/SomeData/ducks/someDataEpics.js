@@ -15,9 +15,16 @@ const getSomeDataEpic = (action$, state, { someDataApi }) => (
     }) => (
       someDataApi.getSomeData({ limit, query })
     )),
-    mergeMap(({ data }) => (
-      of(someDataActions.getSomeDataSuccess({ data }))
-    )),
+    mergeMap(({ data }) => {
+      const filteredData = data.map(({ id, title, images: { fixed_height: fixedHeight } }) => ({
+        height: fixedHeight.height,
+        width: fixedHeight.width,
+        url: fixedHeight.url,
+        id,
+        title,
+      }));
+      return of(someDataActions.getSomeDataSuccess({ data: filteredData }));
+    }),
     catchError(err => of(someDataActions.getSomeDataError(err))),
   )
 );

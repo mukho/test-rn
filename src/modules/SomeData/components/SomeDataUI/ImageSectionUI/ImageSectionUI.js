@@ -6,26 +6,26 @@ import styles from './ImageSectionUI.styles';
 
 type PropsType = {
   title: string,
-  fixedHeight: {
-    width: string,
-    url: string,
-    height: string
-  }
+  width: string,
+  url: string,
+  height: string
 };
 // eslint-disable-next-line react/prefer-stateless-function
 class ImageSectionUI extends PureComponent<PropsType> {
   render() {
-    const { title, fixedHeight } = this.props;
+    const {
+      title, url, width, height,
+    } = this.props;
     return (
       <View style={styles.wrapper}>
         <Text style={styles.header}>
           {title}
         </Text>
         <Image
-          source={{ uri: fixedHeight.url }}
+          source={{ uri: url }}
           style={[styles.image, {
-            height: parseInt(fixedHeight.height, 10),
-            width: parseInt(fixedHeight.width, 10),
+            height: parseInt(height, 10),
+            width: parseInt(width, 10),
           }]}
         />
       </View>

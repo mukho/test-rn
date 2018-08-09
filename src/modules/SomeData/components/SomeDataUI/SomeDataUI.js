@@ -12,13 +12,9 @@ const SomeDataUI = ({ onChangeHandler, onSubmitHandler, data }: {
   data: Array<{
     id: string,
     title: string,
-    images: {
-      fixed_height: {
-        width: string,
-        url: string,
-        height: string
-      }
-    }
+    height: string,
+    width: string,
+    url: string
   }>
 }) => (
   <ScrollView style={styles.wrapper}>
@@ -32,11 +28,15 @@ const SomeDataUI = ({ onChangeHandler, onSubmitHandler, data }: {
     </View>
     <View>
       {
-        data.map(({ id, title, images: { fixed_height: fixedHeight } }) => (
+        data.map(({
+          id, title, height, width, url,
+        }) => (
           <ImageSectionUI
             key={id}
             title={title}
-            fixedHeight={fixedHeight}
+            height={height}
+            width={width}
+            url={url}
           />
         ))
       }
