@@ -2,10 +2,10 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  button: {
-    zIndex: 100,
-    paddingHorizontal: 10,
-    marginRight: 30,
+  wrapper: {
+    flex: 1,
+    width: 240,
+    alignItems: 'flex-end',
   },
   menu: {
     position: 'absolute',
@@ -25,7 +25,13 @@ const styles = StyleSheet.create({
     },
     shadowRadius: 2,
     shadowOpacity: 0.3,
-    elevation: 1,
+    // elevation: 1,
+  },
+  button: {
+    zIndex: 100,
+    width: 40,
+    alignItems: 'center',
+    marginRight: 20,
   },
 });
 

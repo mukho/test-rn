@@ -58,7 +58,8 @@ class Menu extends React.PureComponent<PropsType, StateType> {
     );
 
     return (
-      <View>
+      <View style={styles.wrapper}>
+        <MenuIcon />
         {
           isMenuOpened ? (
             <TouchableOpacity
@@ -71,7 +72,6 @@ class Menu extends React.PureComponent<PropsType, StateType> {
             </TouchableOpacity>
           ) : null
         }
-        <MenuIcon />
       </View>
     );
   }
